@@ -1,3 +1,4 @@
+#This is a METAL script
 # Uncomment the next line if you want to apply genomic control
 # GENOMICCONTROL ON
 
