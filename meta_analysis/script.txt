@@ -1,0 +1,62 @@
+# Uncomment the next line if you want to apply genomic control
+# GENOMICCONTROL ON
+
+# other useful parameters
+COLUMNCOUNTING LENIENT
+AVERAGEFREQ ON
+MINMAXFREQ ON
+
+#uses p-value and direction of effect, weighted according to sample size
+#cause we have no beta and se from mauros previous meta-analysis
+SCHEME STDERR
+
+CUSTOMVARIABLE N_CASE
+CUSTOMVARIABLE N_CONTROL
+CUSTOMVARIABLE N_TOTAL
+
+# === DESCRIBE our INPUT FILE ===
+SEPARATOR TAB
+
+MARKER POSSTR
+ALLELE ALLELE1 ALLELE0
+EFFECT BETA
+STDERR SE
+PVAL P_BOLT_LMM
+WEIGHT N_TOTAL
+FREQ A1FREQ
+
+#For UKBB
+LABEL N_CASE as N_CASE
+LABEL N_CONTROL as N_CONTROL
+LABEL N_TOTAL as N_TOTAL
+
+# === THE SECOND INPUT FILE HAS THE SAME FORMAT, PROCESS ===
+PROCESS /home/cq/work/ibs/meta/sumstats_with_N/final_cc.Qonly.any.sumstats
+PROCESS /home/cq/work/ibs/meta/sumstats_with_N/final_cc.Qnon.any.sumstats
+
+
+# === DESCRIBE MAURO INPUT FILE ===
+#No STDERROR
+
+SEPARATOR TAB
+
+MARKER MarkerName
+ALLELE Test_Allele Other_Allele
+EFFECT BETA
+STDERR SE
+PVAL P-value
+WEIGHT N_TOTAL_SNP
+FREQ Test_Allele_Freq
+
+#For Mauro
+LABEL N_CASE as N_CASE
+LABEL N_CONTROL as N_CTRL_SNP
+LABEL N_TOTAL as N_TOTAL_SNP
+
+# === PROCESS THE FIRST INPUT FILE ===
+PROCESS /home/cq/work/ibs/meta/mauro_with_N/ROME.IBS.META.fix-effect.for_share.csv
+PROCESS /home/cq/work/ibs/meta/mauro_with_N/IBS.ICD_META.fix-effect.for_share.csv
+PROCESS /home/cq/work/ibs/meta/mauro_with_N/IBS.CASE_CTRL.IBS-ALL.EUR_US.META.fix-effect.for_share.csv
+
+ANALYZE
+
